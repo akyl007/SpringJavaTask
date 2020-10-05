@@ -48,7 +48,7 @@ public class HelloWorldTest {
 
     private static class TestOutputStream extends ServletOutputStream {
 
-        private StringBuilder content = new StringBuilder();
+        private final StringBuilder content = new StringBuilder();
 
         @Override
         public void print(String s) {

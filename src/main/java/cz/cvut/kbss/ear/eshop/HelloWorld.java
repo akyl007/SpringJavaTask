@@ -1,5 +1,7 @@
 package cz.cvut.kbss.ear.eshop;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,12 @@ import org.slf4j.LoggerFactory;
 public class HelloWorld extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(HelloWorld.class);
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        LOG.debug("Starting servlet {}.", config.getServletName());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
