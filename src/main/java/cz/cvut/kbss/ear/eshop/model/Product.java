@@ -15,7 +15,7 @@ public class Product extends AbstractEntity{
     @Column(nullable = false)
     private Double price;
     @ManyToMany
-    @JoinColumn
+    @JoinColumn(name = "CATEGORY_COLUMN")
     private List<Category> categories;
 
     public Product(){}

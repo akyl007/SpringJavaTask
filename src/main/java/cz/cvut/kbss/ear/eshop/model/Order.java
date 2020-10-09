@@ -15,7 +15,7 @@ public class Order extends AbstractEntity {
     private User customer;
 
     @OneToMany
-    @JoinColumn
+    @JoinColumn(name = "ORDER_ITEM")
     private List<OrderItem> items;
 
     public LocalDateTime getCreated() {

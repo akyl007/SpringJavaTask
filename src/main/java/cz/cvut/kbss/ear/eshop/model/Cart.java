@@ -13,6 +13,6 @@ public class Cart extends AbstractEntity {
     @OneToOne
     private User owner;
     @OneToMany
-    @JoinColumn
+    @JoinColumn(name = "CART_ID")
     private List<CartItem> items;
 }
