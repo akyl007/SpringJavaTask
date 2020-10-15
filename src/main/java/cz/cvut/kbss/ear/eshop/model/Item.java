@@ -1,24 +1,43 @@
 package cz.cvut.kbss.ear.eshop.model;
 
 import javax.persistence.*;
+
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn
-public class Item extends AbstractEntity {
+@DiscriminatorColumn(name = "ITEM_TYPE")
+public abstract class Item extends AbstractEntity {
+
     @Basic(optional = false)
     @Column(nullable = false)
-    private int amount;
+    private Integer amount;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private Product product;
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "amount=" + amount +
+                ", product=" + product +
+                "}";
     }
 }

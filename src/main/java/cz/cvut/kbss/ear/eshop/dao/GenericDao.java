@@ -61,4 +61,5 @@ public interface GenericDao<T> {
      * @return {@literal true} if entity exists, {@literal false} otherwise
      */
     boolean exists(Integer id);
+
 }

@@ -6,5 +6,11 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("ORDER")
 public class OrderItem extends Item {
-    public OrderItem(){}
+    public OrderItem() {
+    }
+
+    public OrderItem(Item other) {
+        setAmount(other.getAmount());
+        setProduct(other.getProduct());
+    }
 }

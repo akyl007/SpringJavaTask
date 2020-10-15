@@ -4,6 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+
 @DiscriminatorValue("CART_ITEM")
 public class CartItem extends Item {
 
