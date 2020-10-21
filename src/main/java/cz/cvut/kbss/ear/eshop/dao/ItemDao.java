@@ -1,6 +1,5 @@
 package cz.cvut.kbss.ear.eshop.dao;
 
-import cz.cvut.kbss.ear.eshop.exception.PersistenceException;
 import cz.cvut.kbss.ear.eshop.model.Item;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +15,6 @@ public class ItemDao {
 
     public Item find(Integer id) {
         Objects.requireNonNull(id);
-        try {
-            return em.find(Item.class, id);
-        } catch (RuntimeException e) {
-            throw new PersistenceException(e);
-        }
+        return em.find(Item.class, id);
     }
 }

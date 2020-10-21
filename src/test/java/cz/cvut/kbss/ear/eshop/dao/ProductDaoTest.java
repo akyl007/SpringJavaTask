@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 // DataJpaTest does not load all the application beans, it starts only persistence-related stuff
 @DataJpaTest
+// Exclude SystemInitializer from the startup, we don't want the admin account here
 @ComponentScan(basePackageClasses = EShopApplication.class)
 public class ProductDaoTest {
 
@@ -102,4 +103,3 @@ public class ProductDaoTest {
         });
     }
 }
-

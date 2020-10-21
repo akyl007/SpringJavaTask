@@ -24,9 +24,8 @@ public class PersistenceConfig extends JpaBaseConfiguration {
     protected PersistenceConfig(DataSource dataSource,
                                 JpaProperties properties,
                                 ObjectProvider<JtaTransactionManager> jtaTransactionManager,
-                                ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers,
                                 Environment environment) {
-        super(dataSource, properties, jtaTransactionManager, transactionManagerCustomizers);
+        super(dataSource, properties, jtaTransactionManager);
         this.environment = environment;
     }
 
