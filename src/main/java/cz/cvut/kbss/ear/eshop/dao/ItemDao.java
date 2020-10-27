@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Objects;
 
+@Repository
 public class ItemDao {
 
     @PersistenceContext

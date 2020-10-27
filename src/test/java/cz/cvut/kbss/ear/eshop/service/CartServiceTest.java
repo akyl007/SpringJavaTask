@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Using Spring here to startup the context, initialize in-memory database and rollback changes after each test.
  */
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional

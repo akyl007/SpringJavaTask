@@ -1,9 +1,11 @@
 package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.model.User;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 
+@Repository
 public class UserDao extends BaseDao<User> {
 
     public UserDao() {

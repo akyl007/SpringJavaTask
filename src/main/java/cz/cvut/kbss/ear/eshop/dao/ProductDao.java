@@ -2,10 +2,12 @@ package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.model.Category;
 import cz.cvut.kbss.ear.eshop.model.Product;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
 
+@Repository
 public class ProductDao extends BaseDao<Product> {
 
     public ProductDao() {
