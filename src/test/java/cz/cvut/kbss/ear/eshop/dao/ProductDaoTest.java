@@ -4,15 +4,18 @@ import cz.cvut.kbss.ear.eshop.EShopApplication;
 import cz.cvut.kbss.ear.eshop.environment.Generator;
 import cz.cvut.kbss.ear.eshop.model.Category;
 import cz.cvut.kbss.ear.eshop.model.Product;
+import cz.cvut.kbss.ear.eshop.service.SystemInitializer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +28,8 @@ import static org.junit.Assert.*;
 // DataJpaTest does not load all the application beans, it starts only persistence-related stuff
 @DataJpaTest
 // Exclude SystemInitializer from the startup, we don't want the admin account here
-@ComponentScan(basePackageClasses = EShopApplication.class)
+@ComponentScan(basePackageClasses = EShopApplication.class, excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class)})
 public class ProductDaoTest {
 
     // TestEntityManager provides additional test-related methods (it is Spring-specific)
@@ -61,7 +65,7 @@ public class ProductDaoTest {
         final Category other = generateCategory("otherCategory");
         for (int i = 0; i < 10; i++) {
             final Product p = Generator.generateProduct();
-            p.addCategory(other);
+            p.setCategories(new ArrayList<>(Collections.singletonList(other)));
             if (Generator.randomBoolean()) {
                 p.addCategory(category);
                 inCategory.add(p);
@@ -76,7 +80,7 @@ public class ProductDaoTest {
         final Category cat = generateCategory("testCategory");
         final List<Product> products = IntStream.range(0, 10).mapToObj(i -> {
             final Product p = Generator.generateProduct();
-            p.addCategory(cat);
+            p.setCategories(Collections.singletonList(cat));
             p.setRemoved(Generator.randomBoolean());
             return p;
         }).collect(Collectors.toList());
