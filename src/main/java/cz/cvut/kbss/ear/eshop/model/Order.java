@@ -2,6 +2,7 @@ package cz.cvut.kbss.ear.eshop.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,10 @@ public class Order extends AbstractEntity {
         this.customer = cart.getOwner();
         assert cart.getItems() != null;
         this.items = cart.getItems().stream().map(OrderItem::new).collect(Collectors.toList());
+        for (Iterator<CartItem> iterator = cart.getItems().iterator(); iterator.hasNext(); ) {
+            CartItem item = iterator.next();
+            iterator.remove();
+        }
     }
 
     public LocalDateTime getCreated() {

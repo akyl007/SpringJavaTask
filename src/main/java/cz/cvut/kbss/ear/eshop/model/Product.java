@@ -25,7 +25,7 @@ public class Product extends AbstractEntity {
 
     @ManyToMany
     @OrderBy("name")
-    private List<Category> categories;
+    public List<Category> categories = new ArrayList<>();
 
     private Boolean removed = false;
 
