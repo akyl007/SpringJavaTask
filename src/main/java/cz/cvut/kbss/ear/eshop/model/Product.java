@@ -63,6 +63,9 @@ public class Product extends AbstractEntity {
 
     public void addCategory(Category category) {
         Objects.requireNonNull(category);
+        if (categories == null) {
+            this.categories = new ArrayList<>();
+        }
         categories.add(category);
     }
 

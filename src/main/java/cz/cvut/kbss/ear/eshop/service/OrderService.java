@@ -47,6 +47,7 @@ public class OrderService {
         }
         order.setCreated(LocalDateTime.now());
         dao.persist(order);
+        clearCart(cart);
         return order;
     }
 
@@ -62,6 +63,11 @@ public class OrderService {
         user.setPassword(sb.toString());
         userService.persist(user);
         return user;
+    }
+
+    private void clearCart(Cart cart) {
+        cart.getItems().clear();
+        cartDao.update(cart);
     }
 
     @Transactional(readOnly = true)

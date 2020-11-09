@@ -74,6 +74,15 @@ public class OrderServiceTest {
     }
 
     @Test
+    public void createEmptiesCart() {
+        final Cart cart = initCartWithItems();
+
+        sut.create(cart);
+        final Cart result = em.find(Cart.class, cart.getId());
+        assertTrue(result.getItems() == null || result.getItems().isEmpty());
+    }
+
+    @Test
     public void createGeneratesUserWhenCartHasNoOwner() {
         final Cart cart = initCartWithItems();
         cart.setOwner(null);
