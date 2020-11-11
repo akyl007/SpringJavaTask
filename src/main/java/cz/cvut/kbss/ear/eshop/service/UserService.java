@@ -4,30 +4,26 @@ import cz.cvut.kbss.ear.eshop.dao.UserDao;
 import cz.cvut.kbss.ear.eshop.model.Cart;
 import cz.cvut.kbss.ear.eshop.model.User;
 import cz.cvut.kbss.ear.eshop.util.Constants;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 @Service
 public class UserService {
 
     private final UserDao dao;
 
-    private final PasswordEncoder passwordEncoder;
+    final User currentUser = new User(); // singleton simulating logged-in user
 
     @Autowired
-    public UserService(UserDao dao, PasswordEncoder passwordEncoder) {
+    public UserService(UserDao dao) {
         this.dao = dao;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public void persist(User user) {
         Objects.requireNonNull(user);
-        user.encodePassword(passwordEncoder);
         if (user.getRole() == null) {
             user.setRole(Constants.DEFAULT_ROLE);
         }
@@ -45,5 +41,14 @@ public class UserService {
     @Transactional(readOnly = true)
     public boolean exists(String username) {
         return dao.findByUsername(username) != null;
+    }
+
+    /**
+     * Gets the currently logged-in user's cart.
+     *
+     * @return Current user's cart
+     */
+    public Cart getCurrentUserCart() {
+        return currentUser.getCart();
     }
 }
