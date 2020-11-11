@@ -60,12 +60,6 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <!-- Will pull in Spring security-related dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
