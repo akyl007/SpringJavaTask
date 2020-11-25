@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -45,29 +43,11 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void addProductAddsProductToAnotherCategory() {
-        final Product p = Generator.generateProduct();
-        final Category catOne = new Category();
-        catOne.setName("Category one");
-        p.setCategories(new ArrayList<>(Collections.singletonList(catOne)));
-        em.persist(p);
-        em.persist(catOne);
-        final Category catTwo = new Category();
-        catTwo.setName("Category two");
-        em.persist(catTwo);
-
-        sut.addProduct(catTwo, p);
-        final Product result = em.find(Product.class, p.getId());
-        assertTrue(result.getCategories().stream().anyMatch(c -> c.getId().equals(catOne.getId())));
-        assertTrue(result.getCategories().stream().anyMatch(c -> c.getId().equals(catTwo.getId())));
-    }
-
-    @Test
     public void removeProductRemovesProductFromCategory() {
         final Product p = Generator.generateProduct();
         final Category category = new Category();
         category.setName("test");
-        p.setCategories(new ArrayList<>(Collections.singletonList(category)));
+        p.addCategory(category);
         em.persist(p);
         em.persist(category);
         sut.removeProduct(category, p);

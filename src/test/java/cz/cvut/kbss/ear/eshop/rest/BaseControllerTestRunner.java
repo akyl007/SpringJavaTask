@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BaseControllerTestRunner {
 
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     MockMvc mockMvc;
 

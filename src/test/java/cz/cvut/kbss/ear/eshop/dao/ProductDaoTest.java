@@ -2,6 +2,7 @@ package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.EShopApplication;
 import cz.cvut.kbss.ear.eshop.environment.Generator;
+import cz.cvut.kbss.ear.eshop.environment.TestConfiguration;
 import cz.cvut.kbss.ear.eshop.model.Category;
 import cz.cvut.kbss.ear.eshop.model.Product;
 import cz.cvut.kbss.ear.eshop.service.SystemInitializer;
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +29,8 @@ import static org.junit.Assert.*;
 @DataJpaTest
 // Exclude SystemInitializer from the startup, we don't want the admin account here
 @ComponentScan(basePackageClasses = EShopApplication.class, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class)})
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
 public class ProductDaoTest {
 
     // TestEntityManager provides additional test-related methods (it is Spring-specific)
@@ -65,7 +66,7 @@ public class ProductDaoTest {
         final Category other = generateCategory("otherCategory");
         for (int i = 0; i < 10; i++) {
             final Product p = Generator.generateProduct();
-            p.setCategories(new ArrayList<>(Collections.singletonList(other)));
+            p.addCategory(other);
             if (Generator.randomBoolean()) {
                 p.addCategory(category);
                 inCategory.add(p);
@@ -80,7 +81,7 @@ public class ProductDaoTest {
         final Category cat = generateCategory("testCategory");
         final List<Product> products = IntStream.range(0, 10).mapToObj(i -> {
             final Product p = Generator.generateProduct();
-            p.setCategories(Collections.singletonList(cat));
+            p.addCategory(cat);
             p.setRemoved(Generator.randomBoolean());
             return p;
         }).collect(Collectors.toList());

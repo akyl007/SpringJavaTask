@@ -1,16 +1,25 @@
-# Tasks
+# EAR Seminar 10 Tasks
 
-**Maximum**: 2 points
+## Task 1: (1 point)
+Implement `DefaultAuthenticationProvider.authenticate` method to return the expected authentication information.
 
-## Task 1: Data Retrieval REST API for Categories (1 point)
-Implement data retrieval endpoints in `CategoryController` so that tests in `CategoryControllerGetTest` pass.
+Acceptance criteria: Tests in `DefaultAuthenticationProviderTest` should pass.
 
-Acceptance criteria: Tests in `CategoryControllerGetTest` pass.
+Hints: Use `SecurityUtils`, `UserDetails`, and `UserDetailsService` classes in the method implementation.
 
-## Task 2: Data Modification REST API for Categories (1 point)
-Implement data modification endpoints in `CategoryController` so that tests in `CategoryControllerModifyTest` pass.
+## Task 2: (1 point)
+1. Data modifying operations in `CategoryController` should be allowed only for administrators. Use appropriate Spring security
+features to secure the corresponding endpoints.
 
-Acceptance criteria: Tests in `CategoryControllerModifyTest` pass.
+2. Method `OrderService.findAll` should return only the orders of the current user or all orders if the current user is administrator.  
+
+Acceptance criteria:
+
+1. All tests in `CategoryControllerSecurityTest` pass.
+
+2. All tests in `OrderServiceSecurityTest` pass.
+
+Hints: Administrators are users with `Role.ADMIN`.
 
 ### License
 LGPLv3

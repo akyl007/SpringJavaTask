@@ -2,6 +2,7 @@ package cz.cvut.kbss.ear.eshop.dao;
 
 import cz.cvut.kbss.ear.eshop.EShopApplication;
 import cz.cvut.kbss.ear.eshop.environment.Generator;
+import cz.cvut.kbss.ear.eshop.environment.TestConfiguration;
 import cz.cvut.kbss.ear.eshop.model.User;
 import cz.cvut.kbss.ear.eshop.service.SystemInitializer;
 import org.junit.Test;
@@ -21,7 +22,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan(basePackageClasses = EShopApplication.class, excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class)})
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SystemInitializer.class),
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = TestConfiguration.class)})
 public class UserDaoTest {
 
     @PersistenceContext

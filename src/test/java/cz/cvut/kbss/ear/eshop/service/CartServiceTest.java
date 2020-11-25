@@ -128,6 +128,26 @@ public class CartServiceTest {
     }
 
     @Test
+    public void addItemThrowsInsufficientAmountExceptionWhenNotEnoughProductExistsForExistingItem() {
+        final Product product = new Product();
+        product.setName("test product");
+        final int productAmount = 5;
+        product.setAmount(productAmount);
+        em.persist(product);
+
+        final CartItem toAdd = new CartItem();
+        toAdd.setProduct(product);
+        toAdd.setAmount(productAmount - 1);
+        sut.addItem(cart, toAdd);
+
+        thrown.expect(InsufficientAmountException.class);
+        final CartItem tooMuch = new CartItem();
+        tooMuch.setProduct(product);
+        tooMuch.setAmount(productAmount);
+        sut.addItem(cart, tooMuch);
+    }
+
+    @Test
     public void removeItemRemovesItemFromCart() {
         final Product product = new Product();
         product.setName("test product");

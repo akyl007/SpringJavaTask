@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -74,4 +75,10 @@ public class OrderService {
     public Order find(Integer id) {
         return dao.find(id);
     }
+
+//  TODO - return only the orders of the current user or all orders if the current user has the ROLE_ADMIN
+    public List<Order> findAll(){
+        return dao.findAll();
+    }
+
 }
