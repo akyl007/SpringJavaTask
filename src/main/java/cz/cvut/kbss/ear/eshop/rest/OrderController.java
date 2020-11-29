@@ -38,16 +38,16 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createOrder(Principal principal, @RequestBody(required = false) Cart cart) {
-        final Authentication auth = (Authentication) principal;
+        final Authentication authentication = (Authentication) principal;
         final Cart forOrder;
-        if (auth != null && auth.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated()) {
             forOrder = userService.getCurrentUserCart();
         } else {
             forOrder = cart;
         }
         final Order order = orderService.create(forOrder);
-        final HttpHeaders headers = RestUtils.createLocationHeaderFromCurrentUri("/{id}", order.getId());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        final HttpHeaders header = RestUtils.createLocationHeaderFromCurrentUri("/{id}", order.getId());
+        return new ResponseEntity<>(header, HttpStatus.CREATED);
     }
 
     // Overrides class-level authorization settings
